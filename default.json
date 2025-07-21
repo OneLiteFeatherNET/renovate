@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     ":automergePatch",
-    ":assignee({{arg0}})",
+    ":reviewer({{arg0}})",
     ":timezone(Europe/Berlin)",
     "schedule:officeHours",
     "schedule:automergeOfficeHours",
