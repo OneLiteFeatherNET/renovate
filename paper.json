@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchDatasources": ["maven"],
+      "matchManagers": ["gradle"],
+      "matchPackageNames": ["io.papermc.paper:paper-api"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-R(?<build>\\d+)\\.(?<revision>\\d+)(?:-(?<prerelease>SNAPSHOT))?$"
+    }
+  ]
+}
