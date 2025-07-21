@@ -88,6 +88,50 @@ This configuration ensures that Minestom dependencies are correctly versioned ac
 }
 ```
 
+### Default Preset
+
+The Default preset provides a general-purpose configuration for Renovate with common settings and best practices.
+
+**Configuration:**
+
+```json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":automergePatch",
+    ":assignee({{arg0}})",
+    ":timezone(Europe/Berlin)",
+    "schedule:officeHours",
+    "schedule:automergeOfficeHours",
+    ":semanticCommits",
+    ":label(renovate)",
+    ":enableVulnerabilityAlerts"
+  ],
+  "rebaseWhen": "conflicted"
+}
+```
+
+This configuration includes:
+- Renovate's recommended configuration
+- Automatic merging of patch updates
+- PR assignment to a specified user (automatically set using the arg0 parameter)
+- European timezone and office hours scheduling
+- Semantic commit messages
+- Renovate labeling
+- Vulnerability alerts
+- Conflict-only rebasing strategy
+
+**Usage:**
+
+```json
+{
+  "extends": ["github>onelitefeathernet/renovate:default(onelitefeathernet/maintainers)"]
+}
+```
+
+In this example, `onelitefeathernet/maintainers` is passed as the `arg0` parameter, which will be used to automatically set the assignee for all Renovate pull requests. You can replace it with your own username, team name, or any valid GitHub user/team identifier that should be assigned to the PRs.
+
 ### Additional Presets
 
 More presets will be added in the future to support other package ecosystems and versioning schemes.
