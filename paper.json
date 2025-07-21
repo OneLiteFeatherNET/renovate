@@ -4,7 +4,7 @@
     {
       "matchDatasources": ["maven"],
       "matchPackageNames": ["io.papermc.paper:paper-api"],
-      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:-R\\d+\\.\\d+)?(?:-(?<prerelease>SNAPSHOT))?$",
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-.*$"
     }
   ]
 }
