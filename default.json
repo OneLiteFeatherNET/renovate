@@ -2,14 +2,144 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":automergePatch",
+    ":disableDependencyDashboard",
     ":reviewer({{arg0}})",
     ":timezone(Europe/Berlin)",
     "schedule:officeHours",
-    "schedule:automergeOfficeHours",
     ":semanticCommits",
+    ":automergePatch",
     ":label(renovate)",
-    ":enableVulnerabilityAlerts"
+    ":enableVulnerabilityAlerts",
   ],
-  "rebaseWhen": "conflicted"
+  "rebaseWhen": "conflicted",
+  "automergeSchedule": [
+    "at any time"
+  ],
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "branchConcurrentLimit": 0,
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "description": "Internal OLF artifacts are served exclusively from Reposilite, avoids 404s against Maven Central",
+      "matchDatasources": [
+        "maven"
+      ],
+      "matchPackageNames": [
+        "net.onelitefeather:**",
+        "net.theevilreaper:**"
+      ],
+      "registryUrls": [
+        "https://repo.onelitefeather.dev/onelitefeather"
+      ]
+    },
+    {
+      "description": "Internal artifacts: group minor updates and automerge without opening a PR",
+      "matchDatasources": [
+        "maven"
+      ],
+      "matchPackageNames": [
+        "net.onelitefeather:**",
+        "net.theevilreaper:**"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "OneLiteFeather dependencies",
+      "automerge": true,
+      "automergeType": "branch",
+      "minimumReleaseAge": "1 day"
+    },
+    {
+      "description": "Own reusable workflows: group minor updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepNames": [
+        "OneLiteFeatherNET/workflows"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "OneLiteFeather workflows",
+      "automerge": true,
+      "automergeType": "branch",
+      "minimumReleaseAge": "1 day"
+    },
+    {
+      "description": "Remaining GitHub Actions: group minor updates and automerge via PR",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "GitHub Actions",
+      "automerge": true
+    },
+    {
+      "description": "External Maven dependencies: automerge minor updates after the cooldown period",
+      "matchDatasources": [
+        "maven"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Major updates are always separate, never automerged, and require approval from the dashboard",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": null,
+      "automerge": false,
+      "minimumReleaseAge": "7 days",
+      "addLabels": [
+        "breaking"
+      ]
+    },
+    {
+      "description": "Gradle wrapper: minor and major stay manual with a longer cooldown, patches fall through to the rule below",
+      "matchManagers": [
+        "gradle-wrapper"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "major"
+      ],
+      "automerge": false,
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Patches always run: independent of the schedule, grouped, automerged without a PR",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "patch updates",
+      "schedule": [
+        "at any time"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "minimumReleaseAge": "1 day"
+    },
+    {
+      "description": "Security fixes bypass the schedule, the cooldown period and any grouping",
+      "matchDatasources": [
+        "maven",
+        "github-tags",
+        "gradle-version"
+      ],
+      "isVulnerabilityAlert": true,
+      "groupName": null,
+      "minimumReleaseAge": null,
+      "schedule": [
+        "at any time"
+      ],
+      "addLabels": [
+        "security"
+      ]
+    }
+  ]
 }
