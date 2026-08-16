@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "bootstrap-sha": "be45150affd3915d2b802c5227bfdfa259aa3dfa",
+  "pull-request-header": "",
+  "packages": {
+    ".": {
+      "package-name": "renovate",
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}
