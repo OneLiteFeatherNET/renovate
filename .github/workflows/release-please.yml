@@ -1,0 +1,22 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # The presets in this repository are consumed straight from the default branch or from a tag
+  # (`github>OneLiteFeatherNET/renovate:default`), so there is nothing to publish to a registry:
+  # cutting the tag, the GitHub release and the changelog entry is the whole release.
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run release-please
+        uses: googleapis/release-please-action@v5
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

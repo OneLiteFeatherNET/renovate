@@ -140,12 +140,12 @@ More presets will be added in the future to support other package ecosystems and
 
 ### Release Process
 
-This project uses [semantic-release](https://github.com/semantic-release/semantic-release) for automated versioning and package publishing. The release process is triggered automatically on push to main branches.
+This project uses [release-please](https://github.com/googleapis/release-please) for automated versioning and releases. Every push to `main` runs release-please, which keeps a release pull request up to date with the pending version bump and the changelog entries derived from the commits since the last release. Merging that pull request cuts the release: it tags the commit, publishes the GitHub release and updates [CHANGELOG.md](CHANGELOG.md).
 
-The release configuration uses:
-- Conventional Commits for commit message parsing
-- Automated release notes generation
-- Git and GitHub integration
+The release configuration ([`release-please-config.json`](release-please-config.json)) uses:
+- Conventional Commits for commit message parsing — `feat:` bumps the minor version, `fix:` the patch version, and a `!` or a `BREAKING CHANGE:` footer the major version
+- Tags of the form `v<major>.<minor>.<patch>`, so presets can be pinned with `github>onelitefeathernet/renovate:default#v1.1.1`
+- [`.release-please-manifest.json`](.release-please-manifest.json) as the record of the currently released version
 
 ## License
 
