@@ -48,7 +48,7 @@
       ],
       "groupName": "OneLiteFeather dependencies",
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "minimumReleaseAge": "1 day"
     },
     {
@@ -64,7 +64,7 @@
       ],
       "groupName": "OneLiteFeather workflows",
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "minimumReleaseAge": "1 day"
     },
     {
@@ -122,7 +122,7 @@
         "at any time"
       ],
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "minimumReleaseAge": "1 day"
     },
     {
