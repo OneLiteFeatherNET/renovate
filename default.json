@@ -30,7 +30,8 @@
         "net.theevilreaper:**"
       ],
       "registryUrls": [
-        "https://repo.onelitefeather.dev/onelitefeather"
+        "https://repo.onelitefeather.dev/onelitefeather",
+        "https://repo.onelitefeather.dev/releases"
       ]
     },
     {
