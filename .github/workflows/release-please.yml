@@ -13,9 +13,14 @@ jobs:
   # (`github>OneLiteFeatherNET/renovate:default`), so there is nothing to publish to a registry:
   # cutting the tag, the GitHub release and the changelog entry is the whole release.
   release-please:
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
     runs-on: ubuntu-latest
     steps:
       - name: Run release-please
+        id: release
         uses: googleapis/release-please-action@v5
         with:
           config-file: release-please-config.json
