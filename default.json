@@ -9,7 +9,7 @@
     ":semanticCommits",
     ":automergePatch",
     ":label(renovate)",
-    ":enableVulnerabilityAlerts",
+    ":enableVulnerabilityAlerts"
   ],
   "rebaseWhen": "conflicted",
   "automergeSchedule": [
@@ -19,6 +19,17 @@
   "prConcurrentLimit": 0,
   "branchConcurrentLimit": 0,
   "minimumReleaseAge": "3 days",
+  "vulnerabilityAlerts": {
+    "description": "Security fixes bypass the schedule, the cooldown period and any grouping",
+    "groupName": null,
+    "minimumReleaseAge": null,
+    "schedule": [
+      "at any time"
+    ],
+    "addLabels": [
+      "security"
+    ]
+  },
   "packageRules": [
     {
       "description": "Internal OLF artifacts are served exclusively from Reposilite, avoids 404s against Maven Central",
@@ -124,23 +135,6 @@
       "automerge": true,
       "automergeType": "pr",
       "minimumReleaseAge": "1 day"
-    },
-    {
-      "description": "Security fixes bypass the schedule, the cooldown period and any grouping",
-      "matchDatasources": [
-        "maven",
-        "github-tags",
-        "gradle-version"
-      ],
-      "isVulnerabilityAlert": true,
-      "groupName": null,
-      "minimumReleaseAge": null,
-      "schedule": [
-        "at any time"
-      ],
-      "addLabels": [
-        "security"
-      ]
     }
   ]
 }
