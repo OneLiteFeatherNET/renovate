@@ -132,6 +132,22 @@ This configuration includes:
 
 In this example, `onelitefeathernet/maintainers` is passed as the `arg0` parameter, which will be used to automatically set the assignee for all Renovate pull requests. You can replace it with your own username, team name, or any valid GitHub user/team identifier that should be assigned to the PRs.
 
+### Automerge
+
+The Default preset sets `automergeType` to `branch`. Updates marked for automerge (internal artifacts, `OneLiteFeatherNET/workflows`, minor GitHub Actions and Maven updates, patches) do not get a pull request: Renovate pushes a `renovate/…` branch and merges it as soon as the checks on that branch are green. If the checks fail, Renovate opens a pull request on its own. Major updates are never automerged; they always get their own pull request and wait 7 days after release.
+
+Because there is no pull request, `pull_request` triggers never fire for these branches. Every repository that extends this preset must therefore also run its build on `push` to `renovate/**`:
+
+```yaml
+on:
+  pull_request:
+  push:
+    branches:
+      - "renovate/**"
+```
+
+Repositories that use the `gradle-build-pr` workflow from `OneLiteFeatherNET/workflows` additionally need to force the build outside of pull requests (`force-build`), otherwise the job is skipped on push. Without a build on the branch, Renovate waits for checks that never appear and merges nothing.
+
 ### Additional Presets
 
 More presets will be added in the future to support other package ecosystems and versioning schemes.
